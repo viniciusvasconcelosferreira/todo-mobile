@@ -1,11 +1,13 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 import styles from "./styles";
+//COMPONENTES
+import Header from "../../components/Header";
 
 export default function Home() {
     return (
         <View style={styles.container}>
-            <Text>Bem vindo à tela Home</Text>
+            <Header showNotification={true}/>
         </View>
     )
 }

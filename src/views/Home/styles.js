@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
         //alinhamento na horizontal
         alignItems: 'center',
         //alinhamento na vertical
-        justifyContent: 'center'
+        justifyContent: 'flex-start'
     }
 });
 
