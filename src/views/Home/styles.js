@@ -28,6 +28,25 @@ const styles = StyleSheet.create({
         fontSize: 18,
         //intervalo de 0 a 1
         opacity: 0.5
+    },
+    content: {
+        width: '100%',
+        marginTop: 30
+    },
+    title: {
+        width: '100%',
+        borderBottomWidth: 1,
+        borderColor: '#20295F',
+        alignItems: 'center'
+    },
+    titleTex: {
+        textTransform: 'uppercase',
+        color: '#20295F',
+        fontSize: 18,
+        position: 'relative',
+        backgroundColor: '#FFF',
+        top: 11,
+        paddingHorizontal: 10
     }
 });
 
