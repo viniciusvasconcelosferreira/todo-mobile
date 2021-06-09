@@ -15,7 +15,7 @@ export default function Home() {
 
     async function loadTasks() {
         setLoad(true);
-        await api.get('/task/filter/all/11:11:11:11:11:11').then(response => {
+        await api.get(`/task/filter/${filter}/11:11:11:11:11:11`).then(response => {
             setTasks(response.data);
             setLoad(false);
         });
@@ -23,7 +23,7 @@ export default function Home() {
 
     useEffect(() => {
         loadTasks();
-    }, []);
+    }, [filter]);
     return (
         <View style={styles.container}>
             <Header showNotification={true}/>
