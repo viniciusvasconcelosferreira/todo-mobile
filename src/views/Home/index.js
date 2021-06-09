@@ -51,8 +51,8 @@ export default function Home() {
                 {load ?
                     <ActivityIndicator color='#EE6B26' size={50}/>
                     :
-                    tasks.map((t,index) => (
-                        <TaskCard done={false} title={t.title} when={t.when}/>
+                    tasks.map(t => (
+                        <TaskCard done={false} title={t.title} when={t.when} type={t.type}/>
                     ))
                 }
 
