@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
         bottom: 0,
         borderTopWidth: 5,
         borderTopColor: '#EE6B26',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     button: {
         position: 'relative',
