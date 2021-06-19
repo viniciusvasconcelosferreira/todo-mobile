@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#FFF',
-        alignItems: 'flex-start',
+        alignItems: 'center',
         justifyContent: 'flex-start'
     },
     imageIcon: {
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
         marginBottom: 5
     },
     input: {
-        fontSize: 18,
+        fontSize: 16,
         padding: 10,
         width: '95%',
         borderBottomWidth: 1,
@@ -43,7 +43,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding:10
+        padding:10,
+        marginBottom: 50
     },
     inputInLine: {
         flexDirection: 'row',

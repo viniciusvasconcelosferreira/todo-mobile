@@ -10,7 +10,7 @@ import typeIcons from "../../utils/typeIcons";
 export default function Task() {
     const [done, setDone] = useState(false);
     return (
-        <KeyboardAvoidingView behavior='padding' syle={styles.container}>
+        <KeyboardAvoidingView behavior='padding' style={styles.container}>
             <Header showBack={true}/>
             <ScrollView style={{width: '100%'}}>
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{marginVertical: 10}}>
