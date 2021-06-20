@@ -6,7 +6,7 @@ import iconClock from '../../assets/clock.png'
 import {format} from "date-fns";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 
-export default function DateTimeInputAndroid({type}) {
+export default function DateTimeInputAndroid({type, save}) {
     const [date, setDate] = useState(new Date());
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
@@ -19,9 +19,11 @@ export default function DateTimeInputAndroid({type}) {
         setDate(currentDate);
         if (event.nativeEvent.timestamp !== undefined) {
             if (!event.nativeEvent.timestamp.toString().includes('T')) {
-                setDateInput(format(currentDate, 'dd/MM/yyyy'));
+                setDateInput(format(currentDate, 'yyyy-MM-dd'));
+                save(format(currentDate, 'yyyy-MM-dd'));
             } else {
                 setTimeInput(format(currentDate, 'HH:mm'))
+                save(format(currentDate, 'HH:mm:ss'));
             }
         }
 

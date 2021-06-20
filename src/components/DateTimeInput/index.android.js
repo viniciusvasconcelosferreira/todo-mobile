@@ -3,9 +3,13 @@ import {TouchableOpacity, Image, TextInput, DatePickerAndroid, TimePickerAndroid
 import styles from "./styles";
 import iconCalendar from '../../assets/calendar.png'
 import iconClock from '../../assets/clock.png'
+import {format} from "date-fns";
 
-export default function DateTimeInputAndroid({type}) {
+export default function DateTimeInputAndroid({type, save}) {
     const [datetime, setDateTime] = useState();
+    const currentYear = parseInt(format(new Date(),'yyyy'));
+    const currentMonth = parseInt(format(new Date(),'MM'));
+    const currentDay = parseInt(format(new Date(),'dd'));
 
     async function selectDataOrHour() {
         if (type === 'date') {
@@ -14,12 +18,14 @@ export default function DateTimeInputAndroid({type}) {
             });
             if (action === DatePickerAndroid.dateSetAction)
                 setDateTime(`${day} - ${month} - ${year}`);
+                save(format(new Date(year, month, day), 'yyyy-MM-dd'));
         } else {
             const {action, hour, minute} = await TimePickerAndroid.open({
                 is24Hour: true
             });
             if (action !== TimePickerAndroid.dismissedAction)
                 setDateTime(`${hour}:${minute}`);
+                save(format(new Date(currentYear, currentMonth, currentDay,hour,minute,0,0), 'HH:mm:ss'));
         }
     }
 
