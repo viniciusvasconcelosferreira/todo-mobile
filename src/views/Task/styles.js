@@ -43,8 +43,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding:10,
-        marginBottom: 50
+        padding: 10,
+        marginBottom: 70
     },
     inputInLine: {
         flexDirection: 'row',
@@ -63,6 +63,23 @@ const styles = StyleSheet.create({
         color: '#20295F',
         textTransform: 'uppercase',
         fontSize: 16,
+    },
+    inputDatePicker: {
+        fontSize: 18,
+        padding: 10,
+        width: '95%',
+        borderBottomWidth: 1,
+        borderBottomColor: '#EE6B26',
+        marginHorizontal: 10,
+        marginVertical: 20
+    },
+    iconTextInputDatePicker: {
+        position: 'absolute',
+        left: '90%',
+        top: 35,
+        width: 25,
+        height: 25,
+        resizeMode: 'contain',
     }
 });
 
