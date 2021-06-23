@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Text, View, TouchableOpacity, ScrollView, ActivityIndicator} from 'react-native';
 import styles from "./styles";
+import * as Network from 'expo-network';
 //COMPONENTES
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -13,17 +14,25 @@ export default function Home({navigation}) {
     const [tasks, setTasks] = useState([]);
     const [load, setLoad] = useState(false);
     const [lateCount, setLateCount] = useState();
+    const [macaddress, setMacaddress] = useState();
+
+    async function getMacAddress() {
+        //TODO: change to react-native-device-info
+        await Network.getMacAddressAsync().then(mac => {
+            setMacaddress(mac);
+        });
+    }
 
     async function loadTasks() {
         setLoad(true);
-        await api.get(`/task/filter/${filter}/11:11:11:11:11:11`).then(response => {
+        await api.get(`/task/filter/${filter}/${macaddress}`).then(response => {
             setTasks(response.data);
             setLoad(false);
         });
     }
 
     async function lateVerify() {
-        await api.get(`/task/filter/late/11:11:11:11:11:11`).then(response => {
+        await api.get(`/task/filter/late/${macaddress}`).then(response => {
             setLateCount(response.data.length);
         });
     }
@@ -36,10 +45,17 @@ export default function Home({navigation}) {
         navigation.navigate('Task');
     }
 
+    function Show(id) {
+        navigation.navigate('Task', {idTask: id});
+    }
+
     useEffect(() => {
-        loadTasks();
+        getMacAddress().then(() => {
+            loadTasks();
+        });
+
         lateVerify();
-    }, [filter]);
+    }, [filter, macaddress]);
     return (
         <View style={styles.container}>
             <Header showNotification={true} showBack={false} pressNotification={notification} late={lateCount}/>
@@ -67,8 +83,9 @@ export default function Home({navigation}) {
                 {load ?
                     <ActivityIndicator color='#EE6B26' size={50}/>
                     :
-                    tasks.map(t => (
-                        <TaskCard done={false} title={t.title} when={t.when} type={t.type}/>
+                    tasks.map((t, index) => (
+                        <TaskCard key={index} done={false} title={t.title} when={t.when} type={t.type}
+                                  onPress={() => Show(t._id)}/>
                     ))
                 }
 

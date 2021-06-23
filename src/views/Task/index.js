@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {
     View,
     ScrollView,
@@ -9,6 +9,7 @@ import {
     TouchableOpacity,
     Switch, Alert
 } from "react-native";
+import * as Network from 'expo-network';
 //COMPONENTES
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -21,14 +22,15 @@ import typeIcons from "../../utils/typeIcons";
 import api from "../../services/api";
 
 
-export default function Task({navigation}) {
+export default function Task({navigation, idTask}) {
+    const [id, setId] = useState();
     const [done, setDone] = useState(false);
     const [type, setType] = useState();
     const [title, setTitle] = useState();
     const [description, setDescription] = useState();
     const [date, setDate] = useState();
     const [hour, setHour] = useState();
-    const [macaddress, setMacaddress] = useState('11:11:11:11:11:11');
+    const [macaddress, setMacaddress] = useState();
 
     async function New() {
         if (!title)
@@ -48,10 +50,26 @@ export default function Task({navigation}) {
             title,
             description,
             when: `${date}T${hour}.000`
-        }).then(() => {
+        }).then((response) => {
             navigation.navigate('Home');
+        }).catch((error) => {
+            console.error(error);
         });
     }
+
+    async function getMacAddress() {
+        //TODO: change to react-native-device-info
+        await Network.getMacAddressAsync().then(mac => {
+            setMacaddress(mac);
+        });
+    }
+
+
+    useEffect(() => {
+        if (navigation.state.params)
+            setId(navigation.state.params.idTask);
+        getMacAddress();
+    });
 
     return (
         <KeyboardAvoidingView /*behavior='padding'*/ style={styles.container}>
@@ -62,7 +80,7 @@ export default function Task({navigation}) {
                         typeIcons.map((icon, index) => (
                             icon !== null &&
                             <TouchableOpacity onPress={() => setType(index)}>
-                                <Image source={icon}
+                                <Image key={index} source={icon}
                                        style={[styles.imageIcon, type && type !== index && styles.typeIconInative]}/>
                             </TouchableOpacity>
                         ))
@@ -86,16 +104,19 @@ export default function Task({navigation}) {
                 <DateTimePickerInput type={'date'} save={setDate}/>
                 <DateTimePickerInput type={'hour'} save={setHour}/>
 
-                <View style={styles.inLine}>
-                    <View style={styles.inputInLine}>
-                        <Switch onValueChange={() => setDone(!done)} value={done}
-                                thumbColor={done ? '#EE6B26' : '#20295F'}/>
-                        <Text style={styles.switchLabel}>Concluído</Text>
+                {
+                    id &&
+                    <View style={styles.inLine}>
+                        <View style={styles.inputInLine}>
+                            <Switch onValueChange={() => setDone(!done)} value={done}
+                                    thumbColor={done ? '#EE6B26' : '#20295F'}/>
+                            <Text style={styles.switchLabel}>Concluído</Text>
+                        </View>
+                        <TouchableOpacity>
+                            <Text style={styles.removeLabel}>Excluir</Text>
+                        </TouchableOpacity>
                     </View>
-                    <TouchableOpacity>
-                        <Text style={styles.removeLabel}>Excluir</Text>
-                    </TouchableOpacity>
-                </View>
+                }
             </ScrollView>
             <Footer icon={'save'} onPress={New}/>
         </KeyboardAvoidingView>
