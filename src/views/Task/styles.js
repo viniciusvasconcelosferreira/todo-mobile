@@ -25,7 +25,8 @@ const styles = StyleSheet.create({
         width: '95%',
         borderBottomWidth: 1,
         borderBottomColor: '#EE6B26',
-        marginHorizontal: 10
+        marginHorizontal: 10,
+        color: '#000'
     },
     inputArea: {
         fontSize: 16,
@@ -36,7 +37,8 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         borderRadius: 10,
         height: 100,
-        textAlignVertical: 'top'
+        textAlignVertical: 'top',
+        color: '#000'
     },
     inLine: {
         width: '100%',

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {TouchableOpacity, Image, TextInput, Platform, View} from "react-native";
 import styles from "./styles";
 import iconCalendar from '../../assets/calendar.png'
@@ -6,17 +6,17 @@ import iconClock from '../../assets/clock.png'
 import {format} from "date-fns";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 
-export default function DateTimeInputAndroid({type, save}) {
-    const [date, setDate] = useState(new Date());
+export default function DateTimeInputAndroid({type, save, dateWhen, hourWhen}) {
+    const [dateNow, setDateNow] = useState(new Date());
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
     const [dateinput, setDateInput] = useState();
     const [timeinput, setTimeInput] = useState();
 
     const onChange = (event, selectedDate) => {
-        const currentDate = selectedDate || date;
+        const currentDate = selectedDate || dateNow;
         setShow(Platform.OS === 'ios');
-        setDate(currentDate);
+        setDateNow(currentDate);
         if (event.nativeEvent.timestamp !== undefined) {
             if (!event.nativeEvent.timestamp.toString().includes('T')) {
                 setDateInput(format(currentDate, 'yyyy-MM-dd'));
@@ -42,6 +42,17 @@ export default function DateTimeInputAndroid({type, save}) {
         showMode('time');
     };
 
+    useEffect(() => {
+        if (type === 'date' && dateWhen) {
+            setDateInput(format(new Date(dateWhen), 'dd/MM/yyyy'));
+            // save(format(new Date(dateWhen), 'yyyy-MM-dd'));
+        }
+        if (type === 'hour' && hourWhen) {
+            setTimeInput(format(new Date(hourWhen), 'HH:mm'));
+            // save(format(new Date(hourWhen), 'HH:mm:ss'));
+        }
+    });
+
     return (
         <View>
             <TouchableOpacity onPress={type === 'date' ? showDatepicker : showTimepicker}>
@@ -56,7 +67,7 @@ export default function DateTimeInputAndroid({type, save}) {
             {
                 show && (
                     <RNDateTimePicker
-                        value={date}
+                        value={dateNow}
                         mode={mode}
                         is24Hour={true}
                         display="default"

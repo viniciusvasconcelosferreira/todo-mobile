@@ -8,7 +8,8 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#EE6B26',
         marginHorizontal: 10,
-        marginVertical:20
+        marginVertical: 20,
+        color: '#000'
     },
     iconTextInput: {
         position: 'absolute',
