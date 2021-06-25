@@ -84,7 +84,7 @@ export default function Home({navigation}) {
                     <ActivityIndicator color='#EE6B26' size={50}/>
                     :
                     tasks.map((t, index) => (
-                        <TaskCard key={index} done={false} title={t.title} when={t.when} type={t.type}
+                        <TaskCard key={index} done={t.done} title={t.title} when={t.when} type={t.type}
                                   onPress={() => Show(t._id)}/>
                     ))
                 }
