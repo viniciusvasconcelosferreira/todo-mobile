@@ -46,16 +46,16 @@ export default function DateTimeInputAndroid({type, save, dateWhen, hourWhen}) {
         showMode('time');
     };
 
-    // useEffect(() => {
-    //     if (dateWhen) {
-    //         setDateInput(format(new Date(dateWhen), 'dd/MM/yyyy'));
-    //         // save(format(new Date(dateWhen), 'yyyy-MM-dd'));
-    //     }
-    //     if (hourWhen) {
-    //         setTimeInput(format(new Date(hourWhen), 'HH:mm'));
-    //         // save(format(new Date(hourWhen), 'HH:mm:ss'));
-    //     }
-    // });
+    useEffect(() => {
+        if (dateWhen) {
+            setDateInput(format(new Date(dateWhen), 'dd/MM/yyyy'));
+            save(format(new Date(dateWhen), 'yyyy-MM-dd'));
+        }
+        if (hourWhen) {
+            setTimeInput(format(new Date(hourWhen), 'HH:mm'));
+            save(format(new Date(hourWhen), 'HH:mm:ss'));
+        }
+    }, []);
 
     return (
         <View>
@@ -76,6 +76,7 @@ export default function DateTimeInputAndroid({type, save, dateWhen, hourWhen}) {
                         is24Hour={true}
                         display="default"
                         onChange={onChange}
+                        minimumDate={new Date()}
                     />
                 )
             }
