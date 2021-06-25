@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
-import {TouchableOpacity, Image, TextInput, Platform, View} from "react-native";
+import {TouchableOpacity, Image, TextInput, Platform, View, Alert} from "react-native";
 import styles from "./styles";
 import iconCalendar from '../../assets/calendar.png'
 import iconClock from '../../assets/clock.png'
-import {format} from "date-fns";
+import {format, isPast} from "date-fns";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 
 export default function DateTimeInputAndroid({type, save, dateWhen, hourWhen}) {
@@ -19,8 +19,12 @@ export default function DateTimeInputAndroid({type, save, dateWhen, hourWhen}) {
         setDateNow(currentDate);
         if (event.nativeEvent.timestamp !== undefined) {
             if (!event.nativeEvent.timestamp.toString().includes('T')) {
-                setDateInput(format(currentDate, 'yyyy-MM-dd'));
-                save(format(currentDate, 'yyyy-MM-dd'));
+                if (isPast(currentDate)) {
+                    Alert.alert('Você não pode escolher uma data no passado!');
+                } else {
+                    setDateInput(format(currentDate, 'dd/MM/yyyy'));
+                    save(format(currentDate, 'yyyy-MM-dd'));
+                }
             } else {
                 setTimeInput(format(currentDate, 'HH:mm'))
                 save(format(currentDate, 'HH:mm:ss'));
@@ -42,16 +46,16 @@ export default function DateTimeInputAndroid({type, save, dateWhen, hourWhen}) {
         showMode('time');
     };
 
-    useEffect(() => {
-        if (type === 'date' && dateWhen) {
-            setDateInput(format(new Date(dateWhen), 'dd/MM/yyyy'));
-            // save(format(new Date(dateWhen), 'yyyy-MM-dd'));
-        }
-        if (type === 'hour' && hourWhen) {
-            setTimeInput(format(new Date(hourWhen), 'HH:mm'));
-            // save(format(new Date(hourWhen), 'HH:mm:ss'));
-        }
-    });
+    // useEffect(() => {
+    //     if (dateWhen) {
+    //         setDateInput(format(new Date(dateWhen), 'dd/MM/yyyy'));
+    //         // save(format(new Date(dateWhen), 'yyyy-MM-dd'));
+    //     }
+    //     if (hourWhen) {
+    //         setTimeInput(format(new Date(hourWhen), 'HH:mm'));
+    //         // save(format(new Date(hourWhen), 'HH:mm:ss'));
+    //     }
+    // });
 
     return (
         <View>
