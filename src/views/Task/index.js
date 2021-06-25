@@ -94,7 +94,30 @@ export default function Task({navigation}) {
         await Network.getMacAddressAsync().then(mac => {
             setMacaddress(mac);
             setLoad(false);
+        }).catch((error) => {
+            console.error(error);
         });
+    }
+
+    async function DeleteTask() {
+        await api.delete(`task/${id}`).then(() => {
+            navigation.navigate('Home');
+        }).catch((error) => {
+            console.error(error);
+        });
+    }
+
+
+    async function Remove() {
+        Alert.alert(
+            'Remover Tarefa',
+            'Deseja realmente remover essa tarefa',
+            [
+                {text: 'Cancelar'},
+                {text: 'Confirmar', onPress: () => DeleteTask()},
+            ],
+            {cancelable: true}
+        );
     }
 
 
@@ -153,7 +176,7 @@ export default function Task({navigation}) {
                                             thumbColor={done ? '#EE6B26' : '#20295F'}/>
                                     <Text style={styles.switchLabel}>Concluído</Text>
                                 </View>
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={Remove}>
                                     <Text style={styles.removeLabel}>Excluir</Text>
                                 </TouchableOpacity>
                             </View>

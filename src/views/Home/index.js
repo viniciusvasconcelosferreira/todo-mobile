@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View, TouchableOpacity, ScrollView, ActivityIndicator} from 'react-native';
+import {Text, View, TouchableOpacity, ScrollView, ActivityIndicator, Alert} from 'react-native';
 import styles from "./styles";
 import * as Network from 'expo-network';
 //COMPONENTES

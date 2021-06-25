@@ -19,6 +19,7 @@ export default function DateTimeInputAndroid({type, save, dateWhen, hourWhen}) {
         setDateNow(currentDate);
         if (event.nativeEvent.timestamp !== undefined) {
             if (!event.nativeEvent.timestamp.toString().includes('T')) {
+                //TODO: correct to allow selection of current date
                 if (isPast(currentDate)) {
                     Alert.alert('Você não pode escolher uma data no passado!');
                 } else {
