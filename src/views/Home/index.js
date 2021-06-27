@@ -58,7 +58,8 @@ export default function Home({navigation}) {
     }, [filter, macaddress]);
     return (
         <View style={styles.container}>
-            <Header showNotification={true} showBack={false} pressNotification={notification} late={lateCount}/>
+            <Header showNotification={true} showBack={false} pressNotification={notification} late={lateCount}
+                    navigation={navigation}/>
             <View style={styles.filter}>
                 <TouchableOpacity onPress={() => setFilter('all')}>
                     <Text style={filter === 'all' ? styles.filterTextActived : styles.filterTextInative}>Todos</Text>

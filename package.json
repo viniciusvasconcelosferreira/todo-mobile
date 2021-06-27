@@ -12,6 +12,7 @@
     "axios": "^0.21.1",
     "date-fns": "^2.22.1",
     "expo": "~41.0.1",
+    "expo-barcode-scanner": "~10.1.2",
     "expo-network": "~3.1.1",
     "expo-status-bar": "~1.0.4",
     "moment": "^2.29.1",
