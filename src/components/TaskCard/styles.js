@@ -1,5 +1,9 @@
 import {StyleSheet} from 'react-native';
-
+import {
+    responsiveHeight,
+    responsiveWidth,
+    responsiveFontSize
+} from "react-native-responsive-dimensions";
 
 const styles = StyleSheet.create({
     card: {
@@ -21,7 +25,8 @@ const styles = StyleSheet.create({
     },
     cardLeft: {
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        width: responsiveWidth(49),
     },
     typeActive: {
         width: 50,
@@ -31,6 +36,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         fontWeight: 'bold',
         fontSize: 16
+        // fontSize: responsiveFontSize(2)
     },
     cardRight: {
         alignItems: 'flex-end',
@@ -40,9 +46,11 @@ const styles = StyleSheet.create({
         color: '#EE6B26',
         fontWeight: 'bold',
         fontSize: 16
+        // fontSize: responsiveFontSize(2)
     },
     cardTime: {
         color: '#707070',
+        // fontSize: responsiveFontSize(2)
     },
     done: {
         opacity: 0.5
